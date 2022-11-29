@@ -1,8 +1,8 @@
 #!/usr/bin/python3
-# Author - Bamidele Adefolaju
+# Author - Abebaw Begna
 
 def magic_calculation(a, b, c):
-    """Match bytecode provided by Holberton School."""
+    """Match bytecode provided by ALX School."""
     if a < b:
         return (c)
     if c > b:
