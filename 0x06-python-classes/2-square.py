@@ -1,15 +1,17 @@
 #!/usr/bin/python3
-"""
-A module that defines a square
-This module provides a simple Square class with initialize size.
-Size defaults to 0. Raise errors on invalid inputs.
-"""
+""" defines a class named Square """
+
 
 class Square:
-    """A class that defines a square by size"""
+    """ defines a function named __init__ """
     def __init__(self, size=0):
+        """ if statement """
         if type(size) != int:
+            """ raise an error """
             raise TypeError("size must be an integer")
-        if size < 0:
+        elif size < 0:
+            """ raise an error """
             raise ValueError("size must be >= 0")
-        self.__size = size
+        else:
+            """ initialize __size of self with size """
+            self.__size = size
