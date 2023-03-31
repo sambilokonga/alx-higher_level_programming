@@ -1,15 +1,17 @@
 #!/usr/bin/python3
-"""displays the value of the X-Request-Id variable found in
-the header of the response.
+"""Lists the 10 most recent commits on a given GitHub repository.
+Usage: ./100-github_commits.py <repository name> <repository owner>
 """
+import sys
+import requests
 
 
 if __name__ == "__main__":
-    from requests import get
-    from sys import argv
+    url = "https://api.github.com/repos/{}/{}/commits".format(
+        sys.argv[2], sys.argv[1])
 
-    url = 'https://api.github.com/repos/{}/{}/commits'.format(argv[2], argv[1])
-    commits = get(url).json()
+    r = requests.get(url)
+    commits = r.json()
     try:
         for i in range(10):
             print("{}: {}".format(
@@ -17,4 +19,3 @@ if __name__ == "__main__":
                 commits[i].get("commit").get("author").get("name")))
     except IndexError:
         pass
-
