@@ -1,21 +1,22 @@
 #!/usr/bin/python3
 """
-Python script to list 10 most recent commits
-to repository 'rails' by user 'rails'
-using GitHub API
+Get the 10 most recent commits of the passed in repository
+of a given user, then display the sha and author name
+It's... apparently a Holberton School interview question
 """
-if __name__ == "__main__":
-    import requests
-    from sys import argv
-    url = 'https://api.github.com/repos/{}/{}/commits'.format(
-        argv[2], argv[1])
-    response = requests.get(url)
-    json_list = response.json()
-    count = 0
-    for obj in json_list:
-        if count == 10:
-            break
-        print("{}: {}".format(
-            obj.get('sha'),
-            obj.get('commit').get('author').get('name')))
-        count = count + 1
+import requests
+import sys
+
+
+def get_commits():
+    req = requests.get("https://api.github.com/repos/{}/{}/commits"
+                       .format(sys.argv[2], sys.argv[1]))
+
+    for recent_commit in req.json()[:10]:
+        print("{}: {}".format(recent_commit.get('sha'),
+                              recent_commit.get('commit')
+                              .get('author').get('name')))
+
+
+if __name__ == '__main__':
+    get_commits()
