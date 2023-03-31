@@ -1,19 +1,14 @@
 #!/usr/bin/python3
-"""displays the value of the X-Request-Id variable found in
-the header of the response.
+"""Uses the GitHub API to display a GitHub ID based on given credentials.
+Usage: ./10-my_github.py <GitHub username> <GitHub password>
+  - Uses Basic Authentication to access the ID.
 """
+import sys
+import requests
+from requests.auth import HTTPBasicAuth
 
 
 if __name__ == "__main__":
-    from requests import get
-    from sys import argv
-
-    url = 'https://api.github.com/repos/{}/{}/commits'.format(argv[2], argv[1])
-    commits = get(url).json()
-    try:
-        for i in range(10):
-            print("{}: {}".format(
-                commits[i].get("sha"),
-                commits[i].get("commit").get("author").get("name")))
-    except IndexError:
-        pass
+    auth = HTTPBasicAuth(sys.argv[1], sys.argv[2])
+    r = requests.get("https://api.github.com/user", auth=auth)
+    print(r.json().get("id"))
